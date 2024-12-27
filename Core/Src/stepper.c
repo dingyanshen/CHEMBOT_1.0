@@ -1,0 +1,431 @@
+/**
+ ******************************************************************************
+ * @file    stepper.c
+ * @brief   This file provides code for the control of stepper motors.
+ ******************************************************************************
+ */
+
+#include "stepper.h"
+
+void stepperz_run(int dir, int step, int speed)
+{
+    EN1_LOW;
+    if (dir == 1)
+        DIR1_HIGH;
+    else if (dir == -1)
+        DIR1_LOW;
+    for (int i = 0; i < step; i++)
+    {
+        STEP1_HIGH;
+        delay_us(speed);
+        STEP1_LOW;
+        delay_us(speed);
+    }
+    EN1_HIGH;
+}
+
+void steppera_run(int dir, int step, int speed)
+{
+    EN2_LOW;
+    if (dir == 1)
+        DIR2_HIGH;
+    else if (dir == -1)
+        DIR2_LOW;
+    for (int i = 0; i < step; i++)
+    {
+        STEP2_HIGH;
+        delay_us(speed);
+        STEP2_LOW;
+        delay_us(speed);
+    }
+    EN2_HIGH;
+}
+
+void stepperb_run(int dir, int step, int speed)
+{
+    EN3_LOW;
+    if (dir == 1)
+        DIR3_HIGH;
+    else if (dir == -1)
+        DIR3_LOW;
+    for (int i = 0; i < step; i++)
+    {
+        STEP3_HIGH;
+        delay_us(speed);
+        STEP3_LOW;
+        delay_us(speed);
+    }
+    EN3_HIGH;
+}
+
+void stepperab_run(int dira, int dirb, int step, int speed)
+{
+    EN2_LOW;
+    EN3_LOW;
+    if (dira == 1)
+        DIR2_HIGH;
+    else if (dira == -1)
+        DIR2_LOW;
+    if (dirb == 1)
+        DIR3_HIGH;
+    else if (dirb == -1)
+        DIR3_LOW;
+    for (int i = 0; i < step; i++)
+    {
+        STEP2_HIGH;
+        STEP3_HIGH;
+        delay_us(speed);
+        STEP2_LOW;
+        STEP3_LOW;
+        delay_us(speed);
+    }
+    EN2_HIGH;
+    EN3_HIGH;
+}
+
+void stepperz_acc(double a, int dir, int current_width, int target_width)
+{
+    int step = 0;
+    EN1_LOW;
+    if (dir == 1)
+        DIR1_HIGH;
+    else if (dir == -1)
+        DIR1_LOW;
+    if (current_width < target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (current_speed * current_speed - target_speed * target_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP1_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP1_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed - 2.0 * a);
+        }
+    }
+    else if (current_width > target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (target_speed * target_speed - current_speed * current_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP1_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP1_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed + 2.0 * a);
+        }
+    }
+    EN1_HIGH;
+}
+
+void steppera_acc(double a, int dir, int current_width, int target_width)
+{
+    int step = 0;
+    EN2_LOW;
+    if (dir == 1)
+        DIR2_HIGH;
+    else if (dir == -1)
+        DIR2_LOW;
+    if (current_width < target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (current_speed * current_speed - target_speed * target_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP2_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP2_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed - 2.0 * a);
+        }
+    }
+    else if (current_width > target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (target_speed * target_speed - current_speed * current_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP2_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP2_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed + 2.0 * a);
+        }
+    }
+    EN2_HIGH;
+}
+
+void stepperb_acc(double a, int dir, int current_width, int target_width)
+{
+    int step = 0;
+    EN3_LOW;
+    if (dir == 1)
+        DIR3_HIGH;
+    else if (dir == -1)
+        DIR3_LOW;
+    if (current_width < target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (current_speed * current_speed - target_speed * target_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP3_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP3_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed - 2.0 * a);
+        }
+    }
+    else if (current_width > target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (target_speed * target_speed - current_speed * current_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP3_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP3_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed + 2.0 * a);
+        }
+    }
+    EN3_HIGH;
+}
+
+void stepperab_acc(double a, int dira, int dirb, int current_width, int target_width)
+{
+    int step = 0;
+    EN2_LOW;
+    EN3_LOW;
+    if (dira == 1)
+        DIR2_HIGH;
+    else if (dira == -1)
+        DIR2_LOW;
+    if (dirb == 1)
+        DIR3_HIGH;
+    else if (dirb == -1)
+        DIR3_LOW;
+    if (current_width < target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (current_speed * current_speed - target_speed * target_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP2_HIGH;
+            STEP3_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP2_LOW;
+            STEP3_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed - 2.0 * a);
+        }
+    }
+    else if (current_width > target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (target_speed * target_speed - current_speed * current_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP2_HIGH;
+            STEP3_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP2_LOW;
+            STEP3_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed + 2.0 * a);
+        }
+    }
+    EN2_HIGH;
+    EN3_HIGH;
+}
+
+void stepper_move(stepper *stepperx)
+{
+    int dir = stepperx->dir;
+    long step = 0;
+    if (stepperx->id == STEPPERZ)
+        step = calculate_steph(stepperx);
+    else if (stepperx->id == STEPPERA)
+        step = calculate_stepab(stepperx);
+    else if (stepperx->id == STEPPERB)
+        step = calculate_stepab(stepperx);
+    double speed = stepperx->speed;
+    double a = stepperx->acc;
+    int max_width = stepperx->max_width;
+    if (step < 0)
+    {
+        dir = -dir;
+        step = -step;
+    }
+    int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_width) * (0.5 / max_width)) / (2.0 * a);
+    if (step - 2 * step_acc > 0)
+    {
+        stepperz_acc(a, dir, max_width, speed);
+        stepperz_run(dir, step - 2 * step_acc, speed);
+        stepperz_acc(a, dir, speed, max_width);
+    }
+    else if (step - 2 * step_acc <= 0)
+    {
+        speed = speed * 2;
+        step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_width) * (0.5 / max_width)) / (2.0 * a);
+        if (step - 2 * step_acc > 0)
+        {
+            stepperz_acc(a, dir, max_width, speed);
+            stepperz_run(dir, step - 2 * step_acc, speed);
+            stepperz_acc(a, dir, speed, max_width);
+        }
+        else if (step - 2 * step_acc <= 0)
+            stepperz_run(dir, step, max_width);
+    }
+    stepperx->current_pos = stepperx->target_pos;
+}
+
+void stepperab_move(stepper *steppera, stepper *stepperb)
+{
+    int dira = steppera->dir;
+    int dirb = stepperb->dir;
+    long stepa = calculate_stepab(steppera);
+    long stepb = calculate_stepab(stepperb);
+    double speed = SPEED_AB;
+    double speeda = steppera->speed;
+    double speedb = stepperb->speed;
+    double a = ACC_AB;
+    double aa = steppera->acc;
+    double ab = stepperb->acc;
+    if (stepa < 0)
+    {
+        dira = -dira;
+        stepa = -stepa;
+    }
+    if (stepb < 0)
+    {
+        dirb = -dirb;
+        stepb = -stepb;
+    }
+    if (stepa >= stepb)
+    {
+        long step = stepb;
+        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+        if (step - 2 * step_acc > 0)
+        {
+            stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+            stepperab_run(dira, dirb, step - 2 * step_acc, speed);
+            stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+        }
+        else if (step - 2 * step_acc <= 0)
+        {
+            speed = speed * 2;
+            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+            if (step - 2 * step_acc > 0)
+            {
+                stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+                stepperab_run(dira, dirb, step - 2 * step_acc, speed);
+                stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+            }
+            else if (step - 2 * step_acc <= 0)
+                stepperab_run(dira, dirb, step, MAX_WIDTHAB);
+        }
+        step = stepa - stepb;
+        step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / MAX_WIDTHA) * (0.5 / MAX_WIDTHA)) / (2.0 * aa);
+        if (step - 2 * step_acc > 0)
+        {
+            steppera_acc(aa, dira, MAX_WIDTHA, speeda);
+            steppera_run(dira, step - 2 * step_acc, speeda);
+            steppera_acc(aa, dira, speeda, MAX_WIDTHA);
+        }
+        else if (step - 2 * step_acc <= 0)
+        {
+            speeda = speeda * 2;
+            step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / MAX_WIDTHA) * (0.5 / MAX_WIDTHA)) / (2.0 * aa);
+            if (step - 2 * step_acc > 0)
+            {
+                steppera_acc(aa, dira, MAX_WIDTHA, speeda);
+                steppera_run(dira, step - 2 * step_acc, speeda);
+                steppera_acc(aa, dira, speeda, MAX_WIDTHA);
+            }
+            else if (step - 2 * step_acc <= 0)
+                steppera_run(dira, step, MAX_WIDTHA);
+        }
+    }
+    else if (stepa < stepb)
+    {
+        long step = stepa;
+        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+        if (step - 2 * step_acc > 0)
+        {
+            stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+            stepperab_run(dira, dirb, step - 2 * step_acc, speed);
+            stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+        }
+        else if (step - 2 * step_acc <= 0)
+        {
+            speed = speed * 2;
+            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+            if (step - 2 * step_acc > 0)
+            {
+                stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+                stepperab_run(dira, dirb, step - 2 * step_acc, speed);
+                stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+            }
+            else if (step - 2 * step_acc <= 0)
+                stepperab_run(dira, dirb, step, MAX_WIDTHAB);
+        }
+        step = stepb - stepa;
+        step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / MAX_WIDTHB) * (0.5 / MAX_WIDTHB)) / (2.0 * ab);
+        if (step - 2 * step_acc > 0)
+        {
+            stepperb_acc(ab, dirb, MAX_WIDTHB, speedb);
+            stepperb_run(dirb, step - 2 * step_acc, speedb);
+            stepperb_acc(ab, dirb, speedb, MAX_WIDTHB);
+        }
+        else if (step - 2 * step_acc <= 0)
+        {
+            speedb = speedb * 2;
+            step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / MAX_WIDTHB) * (0.5 / MAX_WIDTHB)) / (2.0 * ab);
+            if (step - 2 * step_acc > 0)
+            {
+                stepperb_acc(ab, dirb, MAX_WIDTHB, speedb);
+                stepperb_run(dirb, step - 2 * step_acc, speedb);
+                stepperb_acc(ab, dirb, speedb, MAX_WIDTHB);
+            }
+            else if (step - 2 * step_acc <= 0)
+                stepperb_run(dirb, step, MAX_WIDTHB);
+        }
+    }
+    steppera->current_pos = steppera->target_pos;
+    stepperb->current_pos = stepperb->target_pos;
+}
+
+void moveto(double r, double theta, double h, stepper *steppera, stepper *stepperb, stepper *stepperz)
+{
+    calculate_angles(r, theta, h, &steppera->target_pos, &stepperb->target_pos, &stepperz->target_pos);
+    stepper_move(stepperz);
+    stepperab_move(steppera, stepperb);
+}
+
+void reset(stepper *steppera, stepper *stepperb, stepper *stepperz)
+{
+    steppera->target_pos = THETA_A0;
+    stepperb->target_pos = THETA_B0;
+    stepperz->target_pos = HEIGHT0;
+    stepperab_move(steppera, stepperb);
+    stepper_move(stepperz);
+}

@@ -91,18 +91,25 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
+  reset();
   stepper z = {STEPPERZ, DIR_UP, HEIGHT0, HEIGHT0, ACC_Z, SPEED_Z, MAX_WIDTHZ};
   stepper a = {STEPPERA, DIR_CW, THETA_A0, THETA_A0, ACC_A, SPEED_A, MAX_WIDTHA};
   stepper b = {STEPPERB, DIR_CW, THETA_B0, THETA_B0, ACC_B, SPEED_B, MAX_WIDTHB};
 
-  moveto(100, -40, 50, &a, &b, &z);
+  moveto(180, 0, 120, &a, &b, &z);
+  HAL_Delay(500);
 
-  moveto(60, 20, 50, &a, &b, &z);
+  moveto(120, 0, 120, &a, &b, &z);
+  HAL_Delay(500);
 
-  moveto(120, 40, 50, &a, &b, &z);
+  moveto(180, 30, 100, &a, &b, &z);
+  HAL_Delay(500);
 
-  reset(&a, &b, &z);
+  moveto(130, -50, 120, &a, &b, &z);
+  HAL_Delay(500);
 
+  reset();
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */

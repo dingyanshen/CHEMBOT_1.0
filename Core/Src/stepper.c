@@ -421,11 +421,36 @@ void moveto(double r, double theta, double h, stepper *steppera, stepper *steppe
     stepperab_move(steppera, stepperb);
 }
 
-void reset(stepper *steppera, stepper *stepperb, stepper *stepperz)
+void reset()
 {
-    steppera->target_pos = THETA_A0;
-    stepperb->target_pos = THETA_B0;
-    stepperz->target_pos = HEIGHT0;
-    stepperab_move(steppera, stepperb);
-    stepper_move(stepperz);
+    EN1_LOW;
+    EN2_LOW;
+    EN3_LOW;
+    DIR1_HIGH;
+    DIR2_LOW;
+    DIR3_HIGH;
+    while (SWITCH3_LOW)
+    {
+        STEP1_HIGH;
+        delay_us(SPEED_Z_RESET);
+        STEP1_LOW;
+        delay_us(SPEED_Z_RESET);
+    }
+    while (SWITCH2_LOW)
+    {
+        STEP3_HIGH;
+        delay_us(SPEED_B_RESET);
+        STEP3_LOW;
+        delay_us(SPEED_B_RESET);
+    }
+    while (SWITCH1_LOW)
+    {
+        STEP2_HIGH;
+        delay_us(SPEED_A_RESET);
+        STEP2_LOW;
+        delay_us(SPEED_A_RESET);
+    }
+    EN1_HIGH;
+    EN2_HIGH;
+    EN3_HIGH;
 }

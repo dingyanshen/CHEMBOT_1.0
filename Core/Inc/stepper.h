@@ -36,6 +36,10 @@ extern "C"
 #define EN2_LOW HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_RESET)
 #define EN3_HIGH HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_SET)
 #define EN3_LOW HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_RESET)
+#define EN7_HIGH HAL_GPIO_WritePin(EN7_GPIO_Port, EN7_Pin, GPIO_PIN_SET)
+#define EN7_LOW HAL_GPIO_WritePin(EN7_GPIO_Port, EN7_Pin, GPIO_PIN_RESET)
+#define EN8_HIGH HAL_GPIO_WritePin(EN8_GPIO_Port, EN8_Pin, GPIO_PIN_SET)
+#define EN8_LOW HAL_GPIO_WritePin(EN8_GPIO_Port, EN8_Pin, GPIO_PIN_RESET)
 
 #define DIR1_HIGH HAL_GPIO_WritePin(DIR1_GPIO_Port, DIR1_Pin, GPIO_PIN_SET)
 #define DIR1_LOW HAL_GPIO_WritePin(DIR1_GPIO_Port, DIR1_Pin, GPIO_PIN_RESET)
@@ -43,6 +47,10 @@ extern "C"
 #define DIR2_LOW HAL_GPIO_WritePin(DIR2_GPIO_Port, DIR2_Pin, GPIO_PIN_RESET)
 #define DIR3_HIGH HAL_GPIO_WritePin(DIR3_GPIO_Port, DIR3_Pin, GPIO_PIN_SET)
 #define DIR3_LOW HAL_GPIO_WritePin(DIR3_GPIO_Port, DIR3_Pin, GPIO_PIN_RESET)
+#define DIR7_HIGH HAL_GPIO_WritePin(DIR7_GPIO_Port, DIR7_Pin, GPIO_PIN_SET)
+#define DIR7_LOW HAL_GPIO_WritePin(DIR7_GPIO_Port, DIR7_Pin, GPIO_PIN_RESET)
+#define DIR8_HIGH HAL_GPIO_WritePin(DIR8_GPIO_Port, DIR8_Pin, GPIO_PIN_SET)
+#define DIR8_LOW HAL_GPIO_WritePin(DIR8_GPIO_Port, DIR8_Pin, GPIO_PIN_RESET)
 
 #define STEP1_HIGH HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, GPIO_PIN_SET)
 #define STEP1_LOW HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, GPIO_PIN_RESET)
@@ -50,15 +58,30 @@ extern "C"
 #define STEP2_LOW HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, GPIO_PIN_RESET)
 #define STEP3_HIGH HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, GPIO_PIN_SET)
 #define STEP3_LOW HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, GPIO_PIN_RESET)
+#define STEP7_HIGH HAL_GPIO_WritePin(STEP7_GPIO_Port, STEP7_Pin, GPIO_PIN_SET)
+#define STEP7_LOW HAL_GPIO_WritePin(STEP7_GPIO_Port, STEP7_Pin, GPIO_PIN_RESET)
+#define STEP8_HIGH HAL_GPIO_WritePin(STEP8_GPIO_Port, STEP8_Pin, GPIO_PIN_SET)
+#define STEP8_LOW HAL_GPIO_WritePin(STEP8_GPIO_Port, STEP8_Pin, GPIO_PIN_RESET)
+
+#define SWITCH1_HIGH HAL_GPIO_ReadPin(SWITCH1_GPIO_Port, SWITCH1_Pin) == GPIO_PIN_SET
+#define SWITCH1_LOW HAL_GPIO_ReadPin(SWITCH1_GPIO_Port, SWITCH1_Pin) == GPIO_PIN_RESET
+#define SWITCH2_HIGH HAL_GPIO_ReadPin(SWITCH2_GPIO_Port, SWITCH2_Pin) == GPIO_PIN_SET
+#define SWITCH2_LOW HAL_GPIO_ReadPin(SWITCH2_GPIO_Port, SWITCH2_Pin) == GPIO_PIN_RESET
+#define SWITCH3_HIGH HAL_GPIO_ReadPin(SWITCH3_GPIO_Port, SWITCH3_Pin) == GPIO_PIN_SET
+#define SWITCH3_LOW HAL_GPIO_ReadPin(SWITCH3_GPIO_Port, SWITCH3_Pin) == GPIO_PIN_RESET
 
 #define MAX_WIDTHZ 2000
 #define MAX_WIDTHA 1000
 #define MAX_WIDTHB 1000
 #define MAX_WIDTHAB 1000
+#define MAX_WIDTH7 2000
+#define MAX_WIDTH8 2000
 
 #define STEPPERZ 1
 #define STEPPERA 2
 #define STEPPERB 3
+#define STEPPER7 7
+#define STEPPER8 8
 
 #define DIR_CW 1
 #define DIR_CCW -1
@@ -70,11 +93,18 @@ extern "C"
 #define ACC_A 1.0e-8
 #define ACC_B 1.0e-8
 #define ACC_AB 1.0e-8
+#define ACC_7 2.0e-9
+#define ACC_8 2.0e-9
 
 #define SPEED_Z 150
 #define SPEED_A 60
 #define SPEED_B 60
 #define SPEED_AB 60
+#define SPEED_7 150
+#define SPEED_8 150
+#define SPEED_Z_RESET 500
+#define SPEED_A_RESET 200
+#define SPEED_B_RESET 200
 
     void stepperz_run(int dir, int step, int speed);
     void steppera_run(int dir, int step, int speed);
@@ -87,7 +117,7 @@ extern "C"
     void stepper_move(stepper *stepperx);
     void stepperab_move(stepper *steppera, stepper *stepperb);
     void moveto(double r, double theta, double h, stepper *steppera, stepper *stepperb, stepper *stepperz);
-    void reset(stepper *steppera, stepper *stepperb, stepper *stepperz);
+    void reset(void);
 #ifdef __cplusplus
 }
 #endif

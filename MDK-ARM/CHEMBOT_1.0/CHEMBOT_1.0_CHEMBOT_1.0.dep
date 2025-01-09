@@ -1,8 +1,8 @@
 Dependencies for Project 'CHEMBOT_1.0', Target 'CHEMBOT_1.0': (DO NOT MODIFY !)
-F (startup_stm32f407xx.s)(0x676D4CD0)(--cpu Cortex-M4.fp -g --apcs=interwork -I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list startup_stm32f407xx.lst --xref -o chembot_1.0\startup_stm32f407xx.o --depend chembot_1.0\startup_stm32f407xx.d)
-F (..\Core\Src\stepper.c)(0x676EA22C)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\stepper.o --omf_browse chembot_1.0\stepper.crf --depend chembot_1.0\stepper.d)
-I (../Core/Inc/stepper.h)(0x676EA269)
-I (../Core/Inc/main.h)(0x6762DAD6)
+F (startup_stm32f407xx.s)(0x677FD4BE)(--cpu Cortex-M4.fp -g --apcs=interwork -I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list startup_stm32f407xx.lst --xref -o chembot_1.0\startup_stm32f407xx.o --depend chembot_1.0\startup_stm32f407xx.d)
+F (..\Core\Src\stepper.c)(0x677FA460)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\stepper.o --omf_browse chembot_1.0\stepper.crf --depend chembot_1.0\stepper.d)
+I (../Core/Inc/stepper.h)(0x677FD59C)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -35,10 +35,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
 I (../Core/Inc/delay.h)(0x6763FF5E)
 I (../Core/Inc/tim.h)(0x67641B87)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (../Core/Inc/solution.h)(0x676D5F19)
-F (..\Core\Src\solution.c)(0x676D5EE3)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\solution.o --omf_browse chembot_1.0\solution.crf --depend chembot_1.0\solution.d)
-I (../Core/Inc/solution.h)(0x676D5F19)
-I (../Core/Inc/main.h)(0x6762DAD6)
+I (../Core/Inc/solution.h)(0x677F8B2D)
+F (..\Core\Src\solution.c)(0x677F883E)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\solution.o --omf_browse chembot_1.0\solution.crf --depend chembot_1.0\solution.d)
+I (../Core/Inc/solution.h)(0x677F8B2D)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -69,12 +69,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (../Core/Inc/stepper.h)(0x676EA269)
+I (../Core/Inc/stepper.h)(0x677FD59C)
 I (../Core/Inc/delay.h)(0x6763FF5E)
 I (../Core/Inc/tim.h)(0x67641B87)
 F (..\Core\Src\delay.c)(0x6763FF7E)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\delay.o --omf_browse chembot_1.0\delay.crf --depend chembot_1.0\delay.d)
 I (../Core/Inc/delay.h)(0x6763FF5E)
-I (../Core/Inc/main.h)(0x6762DAD6)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -105,8 +105,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
 I (../Core/Inc/tim.h)(0x67641B87)
-F (../Core/Src/main.c)(0x676EA294)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\main.o --omf_browse chembot_1.0\main.crf --depend chembot_1.0\main.d)
-I (../Core/Inc/main.h)(0x6762DAD6)
+F (../Core/Src/main.c)(0x677FDADD)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\main.o --omf_browse chembot_1.0\main.crf --depend chembot_1.0\main.d)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -138,13 +138,13 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
 I (../Core/Inc/tim.h)(0x67641B87)
 I (../Core/Inc/gpio.h)(0x67641B87)
-I (../Core/Inc/stepper.h)(0x676EA269)
+I (../Core/Inc/stepper.h)(0x677FD59C)
 I (../Core/Inc/delay.h)(0x6763FF5E)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (../Core/Inc/solution.h)(0x676D5F19)
-F (../Core/Src/gpio.c)(0x6762DAD5)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\gpio.o --omf_browse chembot_1.0\gpio.crf --depend chembot_1.0\gpio.d)
+I (../Core/Inc/solution.h)(0x677F8B2D)
+F (../Core/Src/gpio.c)(0x677FD4BC)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\gpio.o --omf_browse chembot_1.0\gpio.crf --depend chembot_1.0\gpio.d)
 I (../Core/Inc/gpio.h)(0x67641B87)
-I (../Core/Inc/main.h)(0x6762DAD6)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -176,7 +176,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
 F (../Core/Src/tim.c)(0x6763C5EB)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\tim.o --omf_browse chembot_1.0\tim.crf --depend chembot_1.0\tim.d)
 I (../Core/Inc/tim.h)(0x67641B87)
-I (../Core/Inc/main.h)(0x6762DAD6)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -206,8 +206,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
-F (../Core/Src/stm32f4xx_it.c)(0x67641E63)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\stm32f4xx_it.o --omf_browse chembot_1.0\stm32f4xx_it.crf --depend chembot_1.0\stm32f4xx_it.d)
-I (../Core/Inc/main.h)(0x6762DAD6)
+F (../Core/Src/stm32f4xx_it.c)(0x677FA229)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\stm32f4xx_it.o --omf_browse chembot_1.0\stm32f4xx_it.crf --depend chembot_1.0\stm32f4xx_it.d)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)
@@ -237,9 +237,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67594FBB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67594FBB)
-I (../Core/Inc/stm32f4xx_it.h)(0x6762DAD6)
+I (../Core/Inc/stm32f4xx_it.h)(0x677FA209)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x675FE275)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include-I D:\NJU\CHEMBOT\CHEMBOT_1.0\MDK-ARM\RTE-I E:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I E:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o chembot_1.0\stm32f4xx_hal_msp.o --omf_browse chembot_1.0\stm32f4xx_hal_msp.crf --depend chembot_1.0\stm32f4xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x6762DAD6)
+I (../Core/Inc/main.h)(0x677FD4BD)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67594FBB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x675ECE9B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x67594FBB)

@@ -27,12 +27,12 @@ extern "C"
 #define PITCH 0.83
 #define M_PI 3.14159265358979323846
 
-#define HEIGHT0 0.0000
-#define THETA_A0 -90.0000
-#define THETA_B0 150.0000
+#define HEIGHT0 180.0000
+#define THETA_A0 -101.0000
+#define THETA_B0 133.0000
 
-#define HEIGHT_MAX 80.0000
-#define HEIGHT_MIN 0.0000
+#define HEIGHT_MAX 180.0000
+#define HEIGHT_MIN 80.0000
 #define THETA_A_MAX 90.0000
 #define THETA_A_MIN -90.0000
 #define THETA_B_MAX 150.0000
@@ -41,8 +41,8 @@ extern "C"
 #define R_MIN 50.0000
 #define THETA_MAX 90.0000
 #define THETA_MIN -90.0000
-#define H_MAX 80.0000
-#define H_MIN 0.0000
+#define H_MAX 180.0000
+#define H_MIN 80.0000
 
     void calculate_angles(double r, double theta, double h, double *theta_a, double *theta_b, double *height);
     long calculate_stepab(stepper *stepperx);

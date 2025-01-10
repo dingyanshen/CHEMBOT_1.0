@@ -36,3 +36,8 @@ long calculate_steph(stepper *stepperx)
 {
     return (long)(((stepperx->target_pos - stepperx->current_pos) / PITCH) * REDUCTION_RATIOH * SUBDIVISION / STEP_ANGLE);
 }
+
+long calculate_steppump(stepper *stepperx)
+{
+    return (long)((stepperx->target_pos - stepperx->current_pos) * KPUMP);
+}

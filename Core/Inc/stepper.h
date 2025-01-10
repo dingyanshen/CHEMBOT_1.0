@@ -109,15 +109,23 @@ extern "C"
     void stepperz_run(int dir, int step, int speed);
     void steppera_run(int dir, int step, int speed);
     void stepperb_run(int dir, int step, int speed);
+    void stepper7_run(int dir, int step, int speed);
+    void stepper8_run(int dir, int step, int speed);
     void stepperab_run(int dira, int dirb, int step, int speed);
     void stepperz_acc(double a, int dir, int current_speed, int target_speed);
     void steppera_acc(double a, int dir, int current_speed, int target_speed);
     void stepperb_acc(double a, int dir, int current_speed, int target_speed);
+    void stepper7_acc(double a, int dir, int current_speed, int target_speed);
+    void stepper8_acc(double a, int dir, int current_speed, int target_speed);
     void stepperab_acc(double a, int dira, int dirb, int current_speed, int target_speed);
-    void stepper_move(stepper *stepperx);
+    void stepperz_move(stepper *stepperx);
+    void stepper7_move(stepper *stepperx);
+    void stepper8_move(stepper *stepperx);
     void stepperab_move(stepper *steppera, stepper *stepperb);
     void moveto(double r, double theta, double h, stepper *steppera, stepper *stepperb, stepper *stepperz);
+    void pump(double volume, stepper *stepperx);
     void reset(void);
+
 #ifdef __cplusplus
 }
 #endif

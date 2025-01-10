@@ -90,26 +90,27 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-
-  reset();
+  
   stepper z = {STEPPERZ, DIR_UP, HEIGHT0, HEIGHT0, ACC_Z, SPEED_Z, MAX_WIDTHZ};
   stepper a = {STEPPERA, DIR_CW, THETA_A0, THETA_A0, ACC_A, SPEED_A, MAX_WIDTHA};
   stepper b = {STEPPERB, DIR_CW, THETA_B0, THETA_B0, ACC_B, SPEED_B, MAX_WIDTHB};
-
+  stepper pump7 = {STEPPER7, DIR_CW, 0, 0, ACC_7, SPEED_7, MAX_WIDTH7};
+  
+  HAL_Delay(500);
+  reset();
+  HAL_Delay(500);
+  moveto(180, 0, 180, &a, &b, &z);
+  HAL_Delay(500);
   moveto(180, 0, 120, &a, &b, &z);
   HAL_Delay(500);
-
-  moveto(120, 0, 120, &a, &b, &z);
+  pump(2000, &pump7);
   HAL_Delay(500);
-
-  moveto(180, 30, 100, &a, &b, &z);
+  pump(-2000, &pump7);
   HAL_Delay(500);
-
-  moveto(130, -50, 120, &a, &b, &z);
+  moveto(180, 0, 180, &a, &b, &z);
   HAL_Delay(500);
-
   reset();
-  
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

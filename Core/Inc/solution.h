@@ -25,6 +25,7 @@ extern "C"
 #define STEP_ANGLE 1.8
 #define SUBDIVISION 8
 #define PITCH 0.83
+#define KPUMP 1
 #define M_PI 3.14159265358979323846
 
 #define HEIGHT0 180.0000
@@ -47,6 +48,7 @@ extern "C"
     void calculate_angles(double r, double theta, double h, double *theta_a, double *theta_b, double *height);
     long calculate_stepab(stepper *stepperx);
     long calculate_steph(stepper *stepperx);
+    long calculate_steppump(stepper *stepperx);
 
 #ifdef __cplusplus
 }

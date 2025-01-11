@@ -58,6 +58,23 @@ void stepperb_run(int dir, int step, int speed)
     EN3_HIGH;
 }
 
+void stepper4_run(int dir, int step, int speed)
+{
+    EN4_LOW;
+    if (dir == 1)
+        DIR4_HIGH;
+    else if (dir == -1)
+        DIR4_LOW;
+    for (int i = 0; i < step; i++)
+    {
+        STEP4_HIGH;
+        delay_us(speed);
+        STEP4_LOW;
+        delay_us(speed);
+    }
+    EN4_HIGH;
+}
+
 void stepper7_run(int dir, int step, int speed)
 {
     EN7_LOW;
@@ -240,6 +257,47 @@ void stepperb_acc(double a, int dir, int current_width, int target_width)
     EN3_HIGH;
 }
 
+void stepper4_acc(double a, int dir, int current_width, int target_width)
+{
+    int step = 0;
+    EN4_LOW;
+    if (dir == 1)
+        DIR4_HIGH;
+    else if (dir == -1)
+        DIR4_LOW;
+    if (current_width < target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (current_speed * current_speed - target_speed * target_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP4_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP4_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed - 2.0 * a);
+        }
+    }
+    else if (current_width > target_width)
+    {
+        double current_speed = 0.5 / current_width;
+        double target_speed = 0.5 / target_width;
+        step = (target_speed * target_speed - current_speed * current_speed) / (2.0 * a);
+        double speed = current_speed;
+        for (int i = 0; i < step; i++)
+        {
+            STEP4_HIGH;
+            delay_us((int)(0.5 / speed));
+            STEP4_LOW;
+            delay_us((int)(0.5 / speed));
+            speed = sqrt(speed * speed + 2.0 * a);
+        }
+    }
+    EN4_HIGH;
+}
+
 void stepper7_acc(double a, int dir, int current_width, int target_width)
 {
     int step = 0;
@@ -406,6 +464,41 @@ void stepperz_move(stepper *stepperx)
             stepperz_run(dir, step, max_width);
     }
     stepperx->current_pos = stepperx->target_pos;
+}
+
+void stepper4_move(stepper *stepperx)
+{
+    int dir = stepperx->dir;
+    long step = calculate_steppump(stepperx);
+    double speed = stepperx->speed;
+    double a = stepperx->acc;
+    int max_width = stepperx->max_width;
+    if (step < 0)
+    {
+        dir = -dir;
+        step = -step;
+    }
+    int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_width) * (0.5 / max_width)) / (2.0 * a);
+    if (step - 2 * step_acc > 0)
+    {
+        stepper4_acc(a, dir, max_width, speed);
+        stepper4_run(dir, step - 2 * step_acc, speed);
+        stepper4_acc(a, dir, speed, max_width);
+    }
+    else if (step - 2 * step_acc <= 0)
+    {
+        speed = speed * 2;
+        step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_width) * (0.5 / max_width)) / (2.0 * a);
+        if (step - 2 * step_acc > 0)
+        {
+            stepper4_acc(a, dir, max_width, speed);
+            stepper4_run(dir, step - 2 * step_acc, speed);
+            stepper4_acc(a, dir, speed, max_width);
+        }
+        else if (step - 2 * step_acc <= 0)
+            stepper4_run(dir, step, max_width);
+    }
+    stepperx->current_pos = stepperx->target_pos = 0;
 }
 
 void stepper7_move(stepper *stepperx)
@@ -601,11 +694,19 @@ void moveto(double r, double theta, double h, stepper *steppera, stepper *steppe
     stepperab_move(steppera, stepperb);
 }
 
-void pump(double volume, stepper *stepperx)
+void pump(double volume, double velocity, stepper *stepperx)
 {
+    if (volume >= MIN_WIDTHPUMP || volume <= MAX_WIDTHPUMP)
+        stepperx->speed = velocity;
+    else if (volume < MIN_WIDTHPUMP)
+        stepperx->speed = MIN_WIDTHPUMP;
+    else if (volume > MAX_WIDTHPUMP)
+        stepperx->speed = MAX_WIDTHPUMP;
     stepperx->target_pos = volume;
     stepperx->current_pos = 0;
-    if (stepperx->id == STEPPER7)
+    if (stepperx->id == STEPPER4)
+        stepper4_move(stepperx);
+    else if (stepperx->id == STEPPER7)
         stepper7_move(stepperx);
     else if (stepperx->id == STEPPER8)
         stepper8_move(stepperx);

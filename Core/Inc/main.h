@@ -79,6 +79,12 @@ void Error_Handler(void);
 #define STEP7_GPIO_Port GPIOC
 #define EN7_Pin GPIO_PIN_5
 #define EN7_GPIO_Port GPIOC
+#define DIR4_Pin GPIO_PIN_15
+#define DIR4_GPIO_Port GPIOE
+#define STEP4_Pin GPIO_PIN_10
+#define STEP4_GPIO_Port GPIOB
+#define EN4_Pin GPIO_PIN_11
+#define EN4_GPIO_Port GPIOB
 #define DIR3_Pin GPIO_PIN_7
 #define DIR3_GPIO_Port GPIOC
 #define STEP3_Pin GPIO_PIN_8

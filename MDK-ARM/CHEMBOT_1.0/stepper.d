@@ -31,6 +31,7 @@ chembot_1.0\stepper.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 chembot_1.0\stepper.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 chembot_1.0\stepper.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 chembot_1.0\stepper.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+chembot_1.0\stepper.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chembot_1.0\stepper.o: ../Core/Inc/delay.h
 chembot_1.0\stepper.o: ../Core/Inc/tim.h
 chembot_1.0\stepper.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

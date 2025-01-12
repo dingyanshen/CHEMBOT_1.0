@@ -5,7 +5,9 @@
 "chembot_1.0\delay.o"
 "chembot_1.0\main.o"
 "chembot_1.0\gpio.o"
+"chembot_1.0\dma.o"
 "chembot_1.0\tim.o"
+"chembot_1.0\usart.o"
 "chembot_1.0\stm32f4xx_it.o"
 "chembot_1.0\stm32f4xx_hal_msp.o"
 "chembot_1.0\stm32f4xx_hal_tim.o"
@@ -23,6 +25,7 @@
 "chembot_1.0\stm32f4xx_hal_cortex.o"
 "chembot_1.0\stm32f4xx_hal.o"
 "chembot_1.0\stm32f4xx_hal_exti.o"
+"chembot_1.0\stm32f4xx_hal_uart.o"
 "chembot_1.0\system_stm32f4xx.o"
 --strict --scatter "CHEMBOT_1.0\CHEMBOT_1.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

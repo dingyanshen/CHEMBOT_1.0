@@ -18,7 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -39,13 +41,20 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define RxBuffer_Len 100
+#define TxBuffer_Len 100
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t RxBuffer[RxBuffer_Len];
+uint8_t TxBuffer[TxBuffer_Len];
+stepper z = {STEPPERZ, DIR_UP, HEIGHT0, HEIGHT0, ACC_Z, SPEED_Z, MAX_WIDTHZ};
+stepper a = {STEPPERA, DIR_CW, THETA_A0, THETA_A0, ACC_A, SPEED_A, MAX_WIDTHA};
+stepper b = {STEPPERB, DIR_CW, THETA_B0, THETA_B0, ACC_B, SPEED_B, MAX_WIDTHB};
+stepper pump7 = {STEPPER7, DIR_CW, 0, 0, ACC_7, SPEED_7, MAX_WIDTH7};
+stepper pump8 = {STEPPER8, DIR_CW, 0, 0, ACC_8, SPEED_8, MAX_WIDTH8};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,34 +97,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  stepper z = {STEPPERZ, DIR_UP, HEIGHT0, HEIGHT0, ACC_Z, SPEED_Z, MAX_WIDTHZ};
-  stepper a = {STEPPERA, DIR_CW, THETA_A0, THETA_A0, ACC_A, SPEED_A, MAX_WIDTHA};
-  stepper b = {STEPPERB, DIR_CW, THETA_B0, THETA_B0, ACC_B, SPEED_B, MAX_WIDTHB};
-  stepper pump7 = {STEPPER7, DIR_CW, 0, 0, ACC_7, SPEED_7, MAX_WIDTH7};
-  stepper pump8 = {STEPPER8, DIR_CW, 0, 0, ACC_8, SPEED_8, MAX_WIDTH8};
-
-  HAL_Delay(500);
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+  HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);
   reset();
-  HAL_Delay(500);
-  moveto(180, 0, 180, &a, &b, &z);
-  HAL_Delay(500);
-  moveto(180, 0, 120, &a, &b, &z);
-  HAL_Delay(500);
-  pump(4000, SPEED_7, &pump7);
-  HAL_Delay(500);
-  pump(-4000, SPEED_7, &pump7);
-  HAL_Delay(500);
-  pump(4000, SPEED_8, &pump8);
-  HAL_Delay(500);
-  pump(-4000, SPEED_8, &pump8);
-  HAL_Delay(500);
-  moveto(180, 0, 180, &a, &b, &z);
-  HAL_Delay(500);
-  reset();
-
   /* USER CODE END 2 */
 
   /* Infinite loop */

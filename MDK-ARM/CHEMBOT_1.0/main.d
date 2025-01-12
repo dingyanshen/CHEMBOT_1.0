@@ -30,7 +30,10 @@ chembot_1.0\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 chembot_1.0\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 chembot_1.0\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 chembot_1.0\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+chembot_1.0\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+chembot_1.0\main.o: ../Core/Inc/dma.h
 chembot_1.0\main.o: ../Core/Inc/tim.h
+chembot_1.0\main.o: ../Core/Inc/usart.h
 chembot_1.0\main.o: ../Core/Inc/gpio.h
 chembot_1.0\main.o: ../Core/Inc/stepper.h
 chembot_1.0\main.o: ../Core/Inc/delay.h

@@ -36,10 +36,10 @@ extern "C"
 #define HEIGHT_MIN 80.0000
 #define THETA_A_MAX 90.0000
 #define THETA_A_MIN -90.0000
-#define THETA_B_MAX 150.0000
-#define THETA_B_MIN -150.0000
+#define THETA_B_MAX 133.0000
+#define THETA_B_MIN -133.0000
 #define R_MAX 180.0000
-#define R_MIN 50.0000
+#define R_MIN 72.0000
 #define THETA_MAX 90.0000
 #define THETA_MIN -90.0000
 #define H_MAX 180.0000

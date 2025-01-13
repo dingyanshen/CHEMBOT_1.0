@@ -220,15 +220,40 @@ void USART1_IRQHandler(void)
     __HAL_UART_CLEAR_IDLEFLAG(&huart1);
     HAL_UART_DMAStop(&huart1);
     RecCount = RxBuffer_Len - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-    if (RecCount == 12)
+
+    if (RecCount == 2)
+    {
+      if (RxBuffer[0] == 'R')
+        if (RxBuffer[1] == 'S')
+          reset(&a, &b, &z);
+    }
+
+    if (RecCount == 13)
+    {
+      double volume, velocity;
+      if (RxBuffer[0] == '7')
+      {
+        volume = (RxBuffer[2] - 48) * 100000 + (RxBuffer[3] - 48) * 10000 + (RxBuffer[4] - 48) * 1000 + (RxBuffer[5] - 48) * 100 + (RxBuffer[6] - 48) * 10 + (RxBuffer[7] - 48);
+        velocity = (RxBuffer[9] - 48) * 1000 + (RxBuffer[10] - 48) * 100 + (RxBuffer[11] - 48) * 10 + (RxBuffer[12] - 48);
+        pump(volume, velocity, &pump7);
+      }
+      if (RxBuffer[0] == '8')
+      {
+        volume = (RxBuffer[2] - 48) * 100000 + (RxBuffer[3] - 48) * 10000 + (RxBuffer[4] - 48) * 1000 + (RxBuffer[5] - 48) * 100 + (RxBuffer[6] - 48) * 10 + (RxBuffer[7] - 48);
+        velocity = (RxBuffer[9] - 48) * 1000 + (RxBuffer[10] - 48) * 100 + (RxBuffer[11] - 48) * 10 + (RxBuffer[12] - 48);
+        pump(volume, velocity, &pump8);
+      }
+    }
+
+    if (RecCount == 14)
     {
       double r, t, h;
       if (RxBuffer[0] == 'R')
         r = (RxBuffer[1] - 48) * 100 + (RxBuffer[2] - 48) * 10 + (RxBuffer[3] - 48);
-      if (RxBuffer[4] == 'T')
-        t = (RxBuffer[5] - 48) * 100 + (RxBuffer[6] - 48) * 10 + (RxBuffer[7] - 48);
-      if (RxBuffer[8] == 'H')
-        h = (RxBuffer[9] - 48) * 100 + (RxBuffer[10] - 48) * 10 + (RxBuffer[11] - 48);
+      if (RxBuffer[5] == 'T')
+        t = (RxBuffer[6] - 48) * 100 + (RxBuffer[7] - 48) * 10 + (RxBuffer[8] - 48) - 90;
+      if (RxBuffer[10] == 'H')
+        h = (RxBuffer[11] - 48) * 100 + (RxBuffer[12] - 48) * 10 + (RxBuffer[13] - 48);
       moveto(r, t, h, &a, &b, &z);
     }
     HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);

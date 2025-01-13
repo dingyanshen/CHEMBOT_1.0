@@ -7,8 +7,8 @@
  * @attention
  *
  * Copyright (c) 2024 STMicroelectronics.
- * All rights reserved.
- *
+ *  rights reserved.
+ *All
  * This software is licensed under terms that can be found in the LICENSE file
  * in the root directory of this software component.
  * If no LICENSE file comes with this software, it is provided AS-IS.
@@ -103,7 +103,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
   HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);
-  reset();
+  reset(&a, &b, &z);
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -140,7 +140,7 @@ extern "C"
     void stepperab_move(stepper *steppera, stepper *stepperb);
     void moveto(double r, double theta, double h, stepper *steppera, stepper *stepperb, stepper *stepperz);
     void pump(double volume, double velocity, stepper *stepperx);
-    void reset(void);
+    void reset(stepper *steppera, stepper *stepperb, stepper *stepperz);
 
 #ifdef __cplusplus
 }

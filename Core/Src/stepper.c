@@ -712,7 +712,7 @@ void pump(double volume, double velocity, stepper *stepperx)
         stepper8_move(stepperx);
 }
 
-void reset()
+void reset(stepper *steppera, stepper *stepperb, stepper *stepperz)
 {
     EN1_LOW;
     EN2_LOW;
@@ -744,4 +744,7 @@ void reset()
     EN1_HIGH;
     EN2_HIGH;
     EN3_HIGH;
+    steppera->current_pos = steppera->target_pos = THETA_A0;
+    stepperb->current_pos = stepperb->target_pos = THETA_B0;
+    stepperz->current_pos = stepperz->target_pos = HEIGHT0;
 }

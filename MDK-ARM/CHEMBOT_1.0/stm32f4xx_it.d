@@ -38,3 +38,4 @@ chembot_1.0\stm32f4xx_it.o: ../Core/Inc/tim.h
 chembot_1.0\stm32f4xx_it.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chembot_1.0\stm32f4xx_it.o: ../Core/Inc/solution.h
 chembot_1.0\stm32f4xx_it.o: ../Core/Inc/stepper.h
+chembot_1.0\stm32f4xx_it.o: ../Core/Inc/relay.h

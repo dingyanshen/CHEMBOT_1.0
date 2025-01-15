@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stepper.h"
+#include "relay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -221,41 +222,101 @@ void USART1_IRQHandler(void)
     HAL_UART_DMAStop(&huart1);
     RecCount = RxBuffer_Len - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
 
-    if (RecCount == 2)
+    if (RecCount == 3)
     {
       if (RxBuffer[0] == 'R')
         if (RxBuffer[1] == 'S')
-          reset(&a, &b, &z);
-    }
+          if (RxBuffer[2] == 'T')
+          {
+            reset(&a, &b, &z);
+            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"RST", 3);
+          }
 
-    if (RecCount == 13)
-    {
-      double volume, velocity;
-      if (RxBuffer[0] == '7')
-      {
-        volume = (RxBuffer[2] - 48) * 100000 + (RxBuffer[3] - 48) * 10000 + (RxBuffer[4] - 48) * 1000 + (RxBuffer[5] - 48) * 100 + (RxBuffer[6] - 48) * 10 + (RxBuffer[7] - 48);
-        velocity = (RxBuffer[9] - 48) * 1000 + (RxBuffer[10] - 48) * 100 + (RxBuffer[11] - 48) * 10 + (RxBuffer[12] - 48);
-        pump(volume, velocity, &pump7);
-      }
-      if (RxBuffer[0] == '8')
-      {
-        volume = (RxBuffer[2] - 48) * 100000 + (RxBuffer[3] - 48) * 10000 + (RxBuffer[4] - 48) * 1000 + (RxBuffer[5] - 48) * 100 + (RxBuffer[6] - 48) * 10 + (RxBuffer[7] - 48);
-        velocity = (RxBuffer[9] - 48) * 1000 + (RxBuffer[10] - 48) * 100 + (RxBuffer[11] - 48) * 10 + (RxBuffer[12] - 48);
-        pump(volume, velocity, &pump8);
-      }
-    }
+      if (RxBuffer[0] == 'A')
+        if (RxBuffer[1] == 'T')
+          if (RxBuffer[2] == 'T')
+          {
+            relay_attract();
+            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"ATT", 3);
+          }
 
-    if (RecCount == 14)
-    {
-      double r, t, h;
       if (RxBuffer[0] == 'R')
-        r = (RxBuffer[1] - 48) * 100 + (RxBuffer[2] - 48) * 10 + (RxBuffer[3] - 48);
-      if (RxBuffer[5] == 'T')
-        t = (RxBuffer[6] - 48) * 100 + (RxBuffer[7] - 48) * 10 + (RxBuffer[8] - 48) - 90;
-      if (RxBuffer[10] == 'H')
-        h = (RxBuffer[11] - 48) * 100 + (RxBuffer[12] - 48) * 10 + (RxBuffer[13] - 48);
-      moveto(r, t, h, &a, &b, &z);
+        if (RxBuffer[1] == 'L')
+          if (RxBuffer[2] == 'S')
+          {
+            relay_release();
+            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"RLS", 3);
+          }
     }
+
+    if (RecCount == 15)
+    {
+      if (RxBuffer[0] == 'M')
+        if (RxBuffer[1] == 'O')
+          if (RxBuffer[2] == 'V')
+          {
+            double r, t, h;
+            r = (RxBuffer[4] - 48) * 100 + (RxBuffer[5] - 48) * 10 + (RxBuffer[6] - 48);
+            t = (RxBuffer[8] - 48) * 100 + (RxBuffer[9] - 48) * 10 + (RxBuffer[10] - 48) - 90;
+            h = (RxBuffer[12] - 48) * 100 + (RxBuffer[13] - 48) * 10 + (RxBuffer[14] - 48);
+            moveto(r, t, h, &a, &b, &z);
+            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"MOV", 3);
+          }
+    }
+
+    if (RecCount == 10)
+    {
+      if (RxBuffer[0] == 'S')
+        if (RxBuffer[1] == 'P')
+          if (RxBuffer[2] == 'D')
+          {
+            double speed = (RxBuffer[6] - 48) * 1000 + (RxBuffer[7] - 48) * 100 + (RxBuffer[8] - 48) * 10 + (RxBuffer[9] - 48);
+            if (speed < MIN_WIDTHSTEPPER)
+              speed = MIN_WIDTHSTEPPER;
+            if (speed > MAX_WIDTHSTEPPER)
+              speed = MAX_WIDTHSTEPPER;
+            if (RxBuffer[4] == 'A')
+            {
+              a.speed = speed;
+              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
+            }
+            if (RxBuffer[4] == 'B')
+            {
+              b.speed = speed;
+              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
+            }
+            if (RxBuffer[4] == 'Z')
+            {
+              z.speed = speed;
+              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
+            }
+          }
+    }
+
+    if (RecCount == 17)
+    {
+      if (RxBuffer[0] == 'P')
+        if (RxBuffer[1] == 'M')
+          if (RxBuffer[2] == 'P')
+          {
+            double volume, velocity;
+            if (RxBuffer[4] == '7')
+            {
+              volume = (RxBuffer[6] - 48) * 100000 + (RxBuffer[7] - 48) * 10000 + (RxBuffer[8] - 48) * 1000 + (RxBuffer[9] - 48) * 100 + (RxBuffer[10] - 48) * 10 + (RxBuffer[11] - 48);
+              velocity = (RxBuffer[13] - 48) * 1000 + (RxBuffer[14] - 48) * 100 + (RxBuffer[15] - 48) * 10 + (RxBuffer[16] - 48);
+              pump(volume, velocity, &pump7);
+              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"PMP", 3);
+            }
+            if (RxBuffer[4] == '8')
+            {
+              volume = (RxBuffer[6] - 48) * 100000 + (RxBuffer[7] - 48) * 10000 + (RxBuffer[8] - 48) * 1000 + (RxBuffer[9] - 48) * 100 + (RxBuffer[10] - 48) * 10 + (RxBuffer[11] - 48);
+              velocity = (RxBuffer[13] - 48) * 1000 + (RxBuffer[14] - 48) * 100 + (RxBuffer[15] - 48) * 10 + (RxBuffer[16] - 48);
+              pump(volume, velocity, &pump8);
+              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"PMP", 3);
+            }
+          }
+    }
+
     HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);
   }
   /* USER CODE END USART1_IRQn 1 */

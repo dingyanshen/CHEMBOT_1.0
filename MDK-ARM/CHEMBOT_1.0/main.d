@@ -40,3 +40,4 @@ chembot_1.0\main.o: ../Core/Inc/delay.h
 chembot_1.0\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chembot_1.0\main.o: ../Core/Inc/solution.h
 chembot_1.0\main.o: ../Core/Inc/stepper.h
+chembot_1.0\main.o: ../Core/Inc/relay.h

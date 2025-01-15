@@ -577,12 +577,15 @@ void stepperab_move(stepper *steppera, stepper *stepperb)
     int dirb = stepperb->dir;
     long stepa = calculate_stepab(steppera);
     long stepb = calculate_stepab(stepperb);
-    double speed = SPEED_AB;
+    double speed = steppera->speed > stepperb->speed ? stepperb->speed : steppera->speed;
     double speeda = steppera->speed;
     double speedb = stepperb->speed;
-    double a = ACC_AB;
+    double a = steppera->acc > stepperb->acc ? stepperb->acc : steppera->acc;
     double aa = steppera->acc;
     double ab = stepperb->acc;
+    int max_widtha = steppera->max_width;
+    int max_widthb = stepperb->max_width;
+    int max_widthab = max_widtha > max_widthb ? max_widtha : max_widthb;
     if (stepa < 0)
     {
         dira = -dira;
@@ -596,91 +599,91 @@ void stepperab_move(stepper *steppera, stepper *stepperb)
     if (stepa >= stepb)
     {
         long step = stepb;
-        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_widthab) * (0.5 / max_widthab)) / (2.0 * a);
         if (step - 2 * step_acc > 0)
         {
-            stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+            stepperab_acc(a, dira, dirb, max_widthab, speed);
             stepperab_run(dira, dirb, step - 2 * step_acc, speed);
-            stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+            stepperab_acc(a, dira, dirb, speed, max_widthab);
         }
         else if (step - 2 * step_acc <= 0)
         {
             speed = speed * 2;
-            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_widthab) * (0.5 / max_widthab)) / (2.0 * a);
             if (step - 2 * step_acc > 0)
             {
-                stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+                stepperab_acc(a, dira, dirb, max_widthab, speed);
                 stepperab_run(dira, dirb, step - 2 * step_acc, speed);
-                stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+                stepperab_acc(a, dira, dirb, speed, max_widthab);
             }
             else if (step - 2 * step_acc <= 0)
-                stepperab_run(dira, dirb, step, MAX_WIDTHAB);
+                stepperab_run(dira, dirb, step, max_widthab);
         }
         step = stepa - stepb;
-        step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / MAX_WIDTHA) * (0.5 / MAX_WIDTHA)) / (2.0 * aa);
+        step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / max_widtha) * (0.5 / max_widtha)) / (2.0 * aa);
         if (step - 2 * step_acc > 0)
         {
-            steppera_acc(aa, dira, MAX_WIDTHA, speeda);
+            steppera_acc(aa, dira, max_widtha, speeda);
             steppera_run(dira, step - 2 * step_acc, speeda);
-            steppera_acc(aa, dira, speeda, MAX_WIDTHA);
+            steppera_acc(aa, dira, speeda, max_widtha);
         }
         else if (step - 2 * step_acc <= 0)
         {
             speeda = speeda * 2;
-            step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / MAX_WIDTHA) * (0.5 / MAX_WIDTHA)) / (2.0 * aa);
+            step_acc = ((0.5 / speeda) * (0.5 / speeda) - (0.5 / max_widtha) * (0.5 / max_widtha)) / (2.0 * aa);
             if (step - 2 * step_acc > 0)
             {
-                steppera_acc(aa, dira, MAX_WIDTHA, speeda);
+                steppera_acc(aa, dira, max_widtha, speeda);
                 steppera_run(dira, step - 2 * step_acc, speeda);
-                steppera_acc(aa, dira, speeda, MAX_WIDTHA);
+                steppera_acc(aa, dira, speeda, max_widtha);
             }
             else if (step - 2 * step_acc <= 0)
-                steppera_run(dira, step, MAX_WIDTHA);
+                steppera_run(dira, step, max_widtha);
         }
     }
     else if (stepa < stepb)
     {
         long step = stepa;
-        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+        int step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_widthab) * (0.5 / max_widthab)) / (2.0 * a);
         if (step - 2 * step_acc > 0)
         {
-            stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+            stepperab_acc(a, dira, dirb, max_widthab, speed);
             stepperab_run(dira, dirb, step - 2 * step_acc, speed);
-            stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+            stepperab_acc(a, dira, dirb, speed, max_widthab);
         }
         else if (step - 2 * step_acc <= 0)
         {
             speed = speed * 2;
-            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / MAX_WIDTHAB) * (0.5 / MAX_WIDTHAB)) / (2.0 * a);
+            step_acc = ((0.5 / speed) * (0.5 / speed) - (0.5 / max_widthab) * (0.5 / max_widthab)) / (2.0 * a);
             if (step - 2 * step_acc > 0)
             {
-                stepperab_acc(a, dira, dirb, MAX_WIDTHAB, speed);
+                stepperab_acc(a, dira, dirb, max_widthab, speed);
                 stepperab_run(dira, dirb, step - 2 * step_acc, speed);
-                stepperab_acc(a, dira, dirb, speed, MAX_WIDTHAB);
+                stepperab_acc(a, dira, dirb, speed, max_widthab);
             }
             else if (step - 2 * step_acc <= 0)
-                stepperab_run(dira, dirb, step, MAX_WIDTHAB);
+                stepperab_run(dira, dirb, step, max_widthab);
         }
         step = stepb - stepa;
-        step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / MAX_WIDTHB) * (0.5 / MAX_WIDTHB)) / (2.0 * ab);
+        step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / max_widthb) * (0.5 / max_widthb)) / (2.0 * ab);
         if (step - 2 * step_acc > 0)
         {
-            stepperb_acc(ab, dirb, MAX_WIDTHB, speedb);
+            stepperb_acc(ab, dirb, max_widthb, speedb);
             stepperb_run(dirb, step - 2 * step_acc, speedb);
-            stepperb_acc(ab, dirb, speedb, MAX_WIDTHB);
+            stepperb_acc(ab, dirb, speedb, max_widthb);
         }
         else if (step - 2 * step_acc <= 0)
         {
             speedb = speedb * 2;
-            step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / MAX_WIDTHB) * (0.5 / MAX_WIDTHB)) / (2.0 * ab);
+            step_acc = ((0.5 / speedb) * (0.5 / speedb) - (0.5 / max_widthb) * (0.5 / max_widthb)) / (2.0 * ab);
             if (step - 2 * step_acc > 0)
             {
-                stepperb_acc(ab, dirb, MAX_WIDTHB, speedb);
+                stepperb_acc(ab, dirb, max_widthb, speedb);
                 stepperb_run(dirb, step - 2 * step_acc, speedb);
-                stepperb_acc(ab, dirb, speedb, MAX_WIDTHB);
+                stepperb_acc(ab, dirb, speedb, max_widthb);
             }
             else if (step - 2 * step_acc <= 0)
-                stepperb_run(dirb, step, MAX_WIDTHB);
+                stepperb_run(dirb, step, max_widthb);
         }
     }
     steppera->current_pos = steppera->target_pos;
@@ -720,6 +723,7 @@ void reset(stepper *steppera, stepper *stepperb, stepper *stepperz)
     DIR1_HIGH;
     DIR2_LOW;
     DIR3_HIGH;
+
     while (SWITCH3_LOW)
     {
         STEP1_HIGH;
@@ -727,20 +731,43 @@ void reset(stepper *steppera, stepper *stepperb, stepper *stepperz)
         STEP1_LOW;
         delay_us(SPEED_Z_RESET);
     }
-    while (SWITCH2_LOW)
+
+    if (steppera->current_pos <= 0)
     {
-        STEP3_HIGH;
-        delay_us(SPEED_B_RESET);
-        STEP3_LOW;
-        delay_us(SPEED_B_RESET);
+        while (SWITCH2_LOW)
+        {
+            STEP3_HIGH;
+            delay_us(SPEED_B_RESET);
+            STEP3_LOW;
+            delay_us(SPEED_B_RESET);
+        }
+        while (SWITCH1_LOW)
+        {
+            STEP2_HIGH;
+            delay_us(SPEED_A_RESET);
+            STEP2_LOW;
+            delay_us(SPEED_A_RESET);
+        }
     }
-    while (SWITCH1_LOW)
+
+    else if (steppera->current_pos > 0)
     {
-        STEP2_HIGH;
-        delay_us(SPEED_A_RESET);
-        STEP2_LOW;
-        delay_us(SPEED_A_RESET);
+        while (SWITCH1_LOW)
+        {
+            STEP2_HIGH;
+            delay_us(SPEED_A_RESET);
+            STEP2_LOW;
+            delay_us(SPEED_A_RESET);
+        }
+        while (SWITCH2_LOW)
+        {
+            STEP3_HIGH;
+            delay_us(SPEED_B_RESET);
+            STEP3_LOW;
+            delay_us(SPEED_B_RESET);
+        }
     }
+
     EN1_HIGH;
     EN2_HIGH;
     EN3_HIGH;

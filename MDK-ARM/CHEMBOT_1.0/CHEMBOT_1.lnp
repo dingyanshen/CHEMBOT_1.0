@@ -10,6 +10,7 @@
 "chembot_1.0\usart.o"
 "chembot_1.0\stm32f4xx_it.o"
 "chembot_1.0\stm32f4xx_hal_msp.o"
+"chembot_1.0\relay.o"
 "chembot_1.0\stm32f4xx_hal_tim.o"
 "chembot_1.0\stm32f4xx_hal_tim_ex.o"
 "chembot_1.0\stm32f4xx_hal_rcc.o"

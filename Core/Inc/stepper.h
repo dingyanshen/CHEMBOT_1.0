@@ -79,10 +79,12 @@ extern "C"
 #define MAX_WIDTHZ 2000
 #define MAX_WIDTHA 1000
 #define MAX_WIDTHB 1000
-#define MAX_WIDTHAB 1000
 #define MAX_WIDTH4 2000
 #define MAX_WIDTH7 2000
 #define MAX_WIDTH8 2000
+
+#define MAX_WIDTHSTEPPER 500
+#define MIN_WIDTHSTEPPER 50
 
 #define MAX_WIDTHPUMP 2000
 #define MIN_WIDTHPUMP 50
@@ -103,7 +105,6 @@ extern "C"
 #define ACC_Z 2.0e-9
 #define ACC_A 1.0e-8
 #define ACC_B 1.0e-8
-#define ACC_AB 1.0e-8
 #define ACC_4 2.0e-9
 #define ACC_7 2.0e-9
 #define ACC_8 2.0e-9
@@ -111,7 +112,6 @@ extern "C"
 #define SPEED_Z 150
 #define SPEED_A 60
 #define SPEED_B 60
-#define SPEED_AB 60
 #define SPEED_4 150
 #define SPEED_7 150
 #define SPEED_8 150

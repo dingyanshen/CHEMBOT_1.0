@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stepper.h"
+#include "relay.h"
 #include "solution.h"
 /* USER CODE END Includes */
 
@@ -103,6 +104,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
   HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);
+  relay_release();
   reset(&a, &b, &z);
   /* USER CODE END 2 */
 

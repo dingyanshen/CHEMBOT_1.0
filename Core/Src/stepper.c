@@ -577,12 +577,12 @@ void stepperab_move(stepper *steppera, stepper *stepperb)
     int dirb = stepperb->dir;
     long stepa = calculate_stepab(steppera);
     long stepb = calculate_stepab(stepperb);
-    double speed = steppera->speed > stepperb->speed ? stepperb->speed : steppera->speed;
     double speeda = steppera->speed;
     double speedb = stepperb->speed;
-    double a = steppera->acc > stepperb->acc ? stepperb->acc : steppera->acc;
+    double speed = speeda > speedb ? speeda : speedb;
     double aa = steppera->acc;
     double ab = stepperb->acc;
+    double a = aa > ab ? ab : aa;
     int max_widtha = steppera->max_width;
     int max_widthb = stepperb->max_width;
     int max_widthab = max_widtha > max_widthb ? max_widtha : max_widthb;

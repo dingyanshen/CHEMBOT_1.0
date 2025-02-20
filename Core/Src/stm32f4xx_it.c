@@ -318,7 +318,7 @@ void USART1_IRQHandler(void)
       case 0x04:;
         double r, t, h;
         r = RxBuffer[2];
-        t = RxBuffer[3];
+        t = RxBuffer[3] - 90;
         h = RxBuffer[4];
         moveto(r, t, h, &a, &b, &z);
         uint8_t Data4[3] = {0x05, 0x04, 0x01};

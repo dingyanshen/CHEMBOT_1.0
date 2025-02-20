@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "stepper.h"
 #include "relay.h"
+#include "crc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -221,102 +222,141 @@ void USART1_IRQHandler(void)
     __HAL_UART_CLEAR_IDLEFLAG(&huart1);
     HAL_UART_DMAStop(&huart1);
     RecCount = RxBuffer_Len - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-
-    if (RecCount == 3)
+    if (RxBuffer[0] == RecCount && check_crc(RxBuffer, RecCount))
     {
-      if (RxBuffer[0] == 'R')
-        if (RxBuffer[1] == 'S')
-          if (RxBuffer[2] == 'T')
-          {
-            reset(&a, &b, &z);
-            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"RST", 3);
-          }
-
-      if (RxBuffer[0] == 'A')
-        if (RxBuffer[1] == 'T')
-          if (RxBuffer[2] == 'T')
+      switch (RxBuffer[1])
+      {
+      case 0x01:
+        if (RxBuffer[2] == 0x01)
+        {
+          reset(&a, &b, &z);
+        }
+        else if (RxBuffer[2] == 0x02)
+        {
+        }
+        else if (RxBuffer[2] == 0x03)
+        {
+        }
+        else if (RxBuffer[2] == 0x04)
+        {
+        }
+        uint8_t Data1[3] = {0x05, 0x01, 0x01};
+        HAL_UART_Transmit_DMA(&huart1, add_crc(Data1), Data1[0]);
+        break;
+      case 0x02:;
+        double speed = RxBuffer[3] * 256 + RxBuffer[4];
+        if (RxBuffer[2] == 0x01)
+        {
+          if (speed < MIN_WIDTHSTEPPER)
+            speed = MIN_WIDTHSTEPPER;
+          if (speed > MAX_WIDTHSTEPPER)
+            speed = MAX_WIDTHSTEPPER;
+          z.speed = speed;
+        }
+        else if (RxBuffer[2] == 0x02)
+        {
+          if (speed < MIN_WIDTHSTEPPER)
+            speed = MIN_WIDTHSTEPPER;
+          if (speed > MAX_WIDTHSTEPPER)
+            speed = MAX_WIDTHSTEPPER;
+          a.speed = speed;
+        }
+        else if (RxBuffer[2] == 0x03)
+        {
+          if (speed < MIN_WIDTHSTEPPER)
+            speed = MIN_WIDTHSTEPPER;
+          if (speed > MAX_WIDTHSTEPPER)
+            speed = MAX_WIDTHSTEPPER;
+          b.speed = speed;
+        }
+        else if (RxBuffer[2] == 0x11)
+        {
+          if (speed < MIN_WIDTHPUMP)
+            speed = MIN_WIDTHPUMP;
+          if (speed > MAX_WIDTHPUMP)
+            speed = MAX_WIDTHPUMP;
+          pump7.speed = speed;
+        }
+        else if (RxBuffer[2] == 0x12)
+        {
+          if (speed < MIN_WIDTHPUMP)
+            speed = MIN_WIDTHPUMP;
+          if (speed > MAX_WIDTHPUMP)
+            speed = MAX_WIDTHPUMP;
+          pump8.speed = speed;
+        }
+        else if (RxBuffer[2] == 0x13)
+        {
+        }
+        else if (RxBuffer[2] == 0x14)
+        {
+        }
+        else if (RxBuffer[2] == 0x15)
+        {
+        }
+        uint8_t Data2[3] = {0x05, 0x02, 0x01};
+        HAL_UART_Transmit_DMA(&huart1, add_crc(Data2), Data2[0]);
+        break;
+      case 0x03:
+        if (RxBuffer[2] == 0x01)
+        {
+          if (RxBuffer[3] == 0x01)
           {
             relay_attract();
-            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"ATT", 3);
           }
-
-      if (RxBuffer[0] == 'R')
-        if (RxBuffer[1] == 'L')
-          if (RxBuffer[2] == 'S')
+          else if (RxBuffer[3] == 0x02)
           {
             relay_release();
-            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"RLS", 3);
           }
-    }
-
-    if (RecCount == 15)
-    {
-      if (RxBuffer[0] == 'M')
-        if (RxBuffer[1] == 'O')
-          if (RxBuffer[2] == 'V')
+        }
+        else if (RxBuffer[2] == 0x02)
+        {
+        }
+        uint8_t Data3[3] = {0x05, 0x03, 0x01};
+        HAL_UART_Transmit_DMA(&huart1, add_crc(Data3), Data3[0]);
+        break;
+      case 0x04:;
+        double r, t, h;
+        r = RxBuffer[2];
+        t = RxBuffer[3];
+        h = RxBuffer[4];
+        moveto(r, t, h, &a, &b, &z);
+        uint8_t Data4[3] = {0x05, 0x04, 0x01};
+        HAL_UART_Transmit_DMA(&huart1, add_crc(Data4), Data4[0]);
+        break;
+      case 0x05:
+        if (RxBuffer[3] == 0x01)
+        {
+        }
+        else if (RxBuffer[3] == 0x02)
+        {
+        }
+        else if (RxBuffer[3] == 0x03)
+        {
+          double volume = RxBuffer[4] * 256 + RxBuffer[5];
+          if (RxBuffer[2] == 0x11)
           {
-            double r, t, h;
-            r = (RxBuffer[4] - 48) * 100 + (RxBuffer[5] - 48) * 10 + (RxBuffer[6] - 48);
-            t = (RxBuffer[8] - 48) * 100 + (RxBuffer[9] - 48) * 10 + (RxBuffer[10] - 48) - 90;
-            h = (RxBuffer[12] - 48) * 100 + (RxBuffer[13] - 48) * 10 + (RxBuffer[14] - 48);
-            moveto(r, t, h, &a, &b, &z);
-            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"MOV", 3);
+            pump(volume, &pump7);
           }
-    }
-
-    if (RecCount == 10)
-    {
-      if (RxBuffer[0] == 'S')
-        if (RxBuffer[1] == 'P')
-          if (RxBuffer[2] == 'D')
+          else if (RxBuffer[2] == 0x12)
           {
-            double speed = (RxBuffer[6] - 48) * 1000 + (RxBuffer[7] - 48) * 100 + (RxBuffer[8] - 48) * 10 + (RxBuffer[9] - 48);
-            if (speed < MIN_WIDTHSTEPPER)
-              speed = MIN_WIDTHSTEPPER;
-            if (speed > MAX_WIDTHSTEPPER)
-              speed = MAX_WIDTHSTEPPER;
-            if (RxBuffer[4] == 'A')
-            {
-              a.speed = speed;
-              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
-            }
-            if (RxBuffer[4] == 'B')
-            {
-              b.speed = speed;
-              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
-            }
-            if (RxBuffer[4] == 'Z')
-            {
-              z.speed = speed;
-              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"SPD", 3);
-            }
+            pump(volume, &pump8);
           }
-    }
-
-    if (RecCount == 17)
-    {
-      if (RxBuffer[0] == 'P')
-        if (RxBuffer[1] == 'M')
-          if (RxBuffer[2] == 'P')
+          else if (RxBuffer[2] == 0x13)
           {
-            double volume, velocity;
-            if (RxBuffer[4] == '7')
-            {
-              volume = (RxBuffer[6] - 48) * 100000 + (RxBuffer[7] - 48) * 10000 + (RxBuffer[8] - 48) * 1000 + (RxBuffer[9] - 48) * 100 + (RxBuffer[10] - 48) * 10 + (RxBuffer[11] - 48);
-              velocity = (RxBuffer[13] - 48) * 1000 + (RxBuffer[14] - 48) * 100 + (RxBuffer[15] - 48) * 10 + (RxBuffer[16] - 48);
-              pump(volume, velocity, &pump7);
-              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"PMP", 3);
-            }
-            if (RxBuffer[4] == '8')
-            {
-              volume = (RxBuffer[6] - 48) * 100000 + (RxBuffer[7] - 48) * 10000 + (RxBuffer[8] - 48) * 1000 + (RxBuffer[9] - 48) * 100 + (RxBuffer[10] - 48) * 10 + (RxBuffer[11] - 48);
-              velocity = (RxBuffer[13] - 48) * 1000 + (RxBuffer[14] - 48) * 100 + (RxBuffer[15] - 48) * 10 + (RxBuffer[16] - 48);
-              pump(volume, velocity, &pump8);
-              HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"PMP", 3);
-            }
           }
+          else if (RxBuffer[2] == 0x14)
+          {
+          }
+          else if (RxBuffer[2] == 0x15)
+          {
+          }
+        }
+        uint8_t Data5[3] = {0x05, 0x05, 0x01};
+        HAL_UART_Transmit_DMA(&huart1, add_crc(Data5), Data5[0]);
+        break;
+      }
     }
-
     HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, RxBuffer_Len);
   }
   /* USER CODE END USART1_IRQn 1 */

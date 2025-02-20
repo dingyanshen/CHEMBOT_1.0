@@ -5,6 +5,7 @@
         "tim.h": "c",
         "gpio.h": "c",
         "stm32f4xx_hal.h": "c",
-        "stepper.h": "c"
+        "stepper.h": "c",
+        "relay.h": "c"
     }
 }

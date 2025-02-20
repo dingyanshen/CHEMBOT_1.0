@@ -437,6 +437,11 @@
               <FilePath>..\Core\Src\delay.c</FilePath>
             </File>
             <File>
+              <FileName>relay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\relay.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -558,9 +563,9 @@
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>relay.c</FileName>
+              <FileName>crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Core\Src\relay.c</FilePath>
+              <FilePath>..\Core\Src\crc.c</FilePath>
             </File>
           </Files>
         </Group>

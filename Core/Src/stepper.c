@@ -697,14 +697,8 @@ void moveto(double r, double theta, double h, stepper *steppera, stepper *steppe
     stepperab_move(steppera, stepperb);
 }
 
-void pump(double volume, double velocity, stepper *stepperx)
+void pump(double volume, stepper *stepperx)
 {
-    if (volume >= MIN_WIDTHPUMP || volume <= MAX_WIDTHPUMP)
-        stepperx->speed = velocity;
-    else if (volume < MIN_WIDTHPUMP)
-        stepperx->speed = MIN_WIDTHPUMP;
-    else if (volume > MAX_WIDTHPUMP)
-        stepperx->speed = MAX_WIDTHPUMP;
     stepperx->target_pos = volume;
     stepperx->current_pos = 0;
     if (stepperx->id == STEPPER4)
